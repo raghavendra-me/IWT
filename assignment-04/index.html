@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Student Profile</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="content">
+        <h2>Search Student Profile</h2>
+        <form>
+            <label for="registrationNumber">Enter Registration Number:</label>
+            <input type="text" id="registrationNumber" placeholder="E.g., 21mis7106">
+            <button type="button" onclick="displayStudentDetails()">Show Details</button>
+        </form>
+        <div id="studentDetails"></div>
+    </section>
+
+    <script>
+        const studentData = {
+            "21mis7106": {
+                name: "John Doe",
+                department: "Computer Science",
+                email: "john.doe@example.com",
+                phone: "+1234567890",
+            },
+            "randomRegNo1": {
+                name: "Jane Smith",
+                department: "Electrical Engineering",
+                email: "jane.smith@example.com",
+                phone: "+9876543210",
+            },
+            "randomRegNo2": {
+                name: "Alice Johnson",
+                department: "Mathematics",
+                email: "alice.johnson@example.com",
+                phone: "+5551234567",
+            },
+            "randomRegNo3": {
+                name: "Bob Williams",
+                department: "Physics",
+                email: "bob.williams@example.com",
+                phone: "+1112223333",
+            },
+            "randomRegNo4": {
+                name: "Eve Davis",
+                department: "History",
+                email: "eve.davis@example.com",
+                phone: "+9998887777",
+            },
+        };
+
+        function displayStudentDetails() {
+            const regNoInput = document.getElementById("registrationNumber");
+            const studentDetailsDiv = document.getElementById("studentDetails");
+            const regNo = regNoInput.value.trim();
+
+            if (studentData[regNo]) {
+                const student = studentData[regNo];
+                studentDetailsDiv.innerHTML = `
+                    <h3>Student Details</h3>
+                    <p><strong>Name:</strong> ${student.name}</p>
+                    <p><strong>Department:</strong> ${student.department}</p>
+                    <p><strong>Email:</strong> ${student.email}</p>
+                    <p><strong>Phone:</strong> ${student.phone}</p>
+                `;
+            } else {
+                studentDetailsDiv.innerHTML = "<p>Student not found with the provided Registration Number.</p>";
+            }
+        }
+    </script>
+</body>
+</html>

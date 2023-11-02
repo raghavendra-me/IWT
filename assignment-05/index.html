@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .calculator h1 {
+            font-size: 24px;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        .calculator label {
+            font-weight: bold;
+        }
+
+        .calculator input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .calculator button {
+            background-color: #1e90ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .calculator button:hover {
+            background-color: #007acc;
+        }
+
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Tax Calculator</h1>
+        <label for="income">Income:</label>
+        <input type="number" id="income" placeholder="Enter your income" required>
+
+        <label for="relief87A">Relief under Section 87A:</label>
+        <input type="number" id="relief87A" placeholder="Enter relief amount">
+
+        <label for="surcharge">Surcharge:</label>
+        <input type="number" id="surcharge" placeholder="Enter surcharge amount">
+
+        <label for="educationCess">Education Cess (%):</label>
+        <input type="number" id="educationCess" placeholder="Enter education cess percentage">
+
+        <button onclick="calculateTax()">Calculate Tax</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const income = parseFloat(document.getElementById("income").value);
+            const relief87A = parseFloat(document.getElementById("relief87A").value) || 0;
+            const surcharge = parseFloat(document.getElementById("surcharge").value) || 0;
+            const educationCess = parseFloat(document.getElementById("educationCess").value) || 0;
+
+            const totalTaxLiability = calculateTaxLiability(income, relief87A, surcharge, educationCess);
+
+            document.getElementById("result").innerHTML = `Tax Liability: $${totalTaxLiability.toFixed(2)}`;
+        }
+
+        function calculateTaxLiability(income, relief87A, surcharge, educationCess) {
+            const taxableIncome = income - relief87A;
+            let tax = 0;
+
+            if (taxableIncome <= 500000) {
+                tax = taxableIncome * 0.05;
+            } else if (taxableIncome <= 1000000) {
+                tax = 25000 + (taxableIncome - 500000) * 0.2;
+            } else
